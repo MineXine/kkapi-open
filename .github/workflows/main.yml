@@ -39,7 +39,7 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: |
           export TZ='Asia/Shanghai'
-          yarn install --frozen-lockfile || yarn install
+          yarn install --frozen-lockfile
 
       - name: 5. 开始构建
         run: |
