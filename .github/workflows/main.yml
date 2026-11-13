@@ -7,6 +7,11 @@ on:
     branches:
       - master
 
+# 推送到 vercel 分支需要写权限。仓库默认 token 权限已收紧为只读，
+# 不显式声明会在第 6 步 push 时报 403。
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,29 +19,27 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      # check it to your workflow can access it
-      # from: https://github.com/actions/checkout
+      # action 统一固定到大版本，避免 @master 浮动引用随上游改动突然失效
       - name: 1. 检查master分支
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
 
-      # from: https://github.com/actions/setup-node
       - name: 2. 设置Node.js
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: 3. 缓存
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cache-dependencies
         with:
           path: node_modules
-          key: ${{runner.OS}}-${{hashFiles('**/yarn.lock')}}
+          key: ${{ runner.OS }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: 4. 安装插件
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: |
           export TZ='Asia/Shanghai'
-          yarn install
+          yarn install --frozen-lockfile || yarn install
 
       - name: 5. 开始构建
         run: |
@@ -46,7 +49,7 @@ jobs:
           cp package.json ./dist/
 
       - name: 6. 推送到vercel分支
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: vercel
