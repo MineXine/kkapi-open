@@ -48,6 +48,50 @@ export class Ispeak {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: UserModelName.User, required: true })
   author: string;
 
+  /**
+   * 归档时间，null 表示未归档。归档后对既有列表/单条接口不可见
+   */
+  @Prop({ type: Date, default: null })
+  archivedAt: Date;
+
+  /**
+   * 展示主题标识
+   */
+  @Prop({ type: String, default: 'default' })
+  theme: string;
+
+  /**
+   * MDC 组件配置项（组件级配置覆盖，正文仍保留 ::组件{} 的 MDC 原生语法）
+   */
+  @Prop({ type: mongoose.Schema.Types.Mixed, default: null })
+  mdc: any;
+
+  /**
+   * 附件 id 列表（媒体模块接入后生效）
+   */
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], default: [] })
+  mediaIds: mongoose.Schema.Types.ObjectId[];
+
+  /**
+   * 发布坐标（GeoJSON Point）。地图视图所需的空间索引留待该功能上线时手工创建
+   */
+  @Prop({
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point',
+    },
+    coordinates: { type: [Number], default: undefined },
+    name: { type: String, default: '' },
+  })
+  location: any;
+
+  /**
+   * 发布设备信息 { browser, browserVersion, os, osVersion, device, ua }
+   */
+  @Prop({ type: mongoose.Schema.Types.Mixed, default: null })
+  client: any;
+
   @Prop()
   updatedAt: Date;
   @Prop()

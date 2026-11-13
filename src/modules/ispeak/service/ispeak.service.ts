@@ -40,6 +40,9 @@ export class IspeakService {
         query.push(obj);
       }
     });
+    // 归档内容对既有列表接口不可见。{ archivedAt: null } 同时匹配「值为 null」与「字段缺失」，
+    // 因此对全部存量文档无影响，仅过滤显式写入归档时间的记录。
+    query.push({ archivedAt: null });
     const match = {};
     if (query.length) {
       match['$and'] = query;
@@ -110,6 +113,7 @@ export class IspeakService {
   }
 
   async findOne(findOption: mongoose.RootQuerySelector<IspeakDocument>) {
-    return this.IspeakModel.find(findOption);
+    // 归档内容对公开单条读取不可见；作者侧 update/status/delete 走 findOneAndUpdate 等方法，不受此影响
+    return this.IspeakModel.find({ ...findOption, archivedAt: null });
   }
 }

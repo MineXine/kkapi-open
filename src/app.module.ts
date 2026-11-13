@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { UserModule } from './modules/users/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { IspeakModule } from './modules/ispeak/ispeak.module';
+import { IspeakExtModule } from './modules/ispeakExt/ispeakExt.module';
 import { OpenApiModule } from './modules/openApi/openApi.module';
 
 const controllers = [AppController];
@@ -24,6 +25,7 @@ const providers = [AppService];
     AuthModule,
     UserModule,
     IspeakModule,
+    IspeakExtModule,
     OpenApiModule,
     MongooseModule.forRoot(process.env.DATABASE_URL, {
       user: process.env.DATABASE_USER,
