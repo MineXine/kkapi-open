@@ -17,6 +17,7 @@ const app_service_1 = require("./app.service");
 const user_module_1 = require("./modules/users/user.module");
 const auth_module_1 = require("./modules/auth/auth.module");
 const ispeak_module_1 = require("./modules/ispeak/ispeak.module");
+const ispeakExt_module_1 = require("./modules/ispeakExt/ispeakExt.module");
 const openApi_module_1 = require("./modules/openApi/openApi.module");
 const controllers = [app_controller_1.AppController];
 const providers = [app_service_1.AppService];
@@ -32,6 +33,7 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
             user_module_1.UserModule,
             ispeak_module_1.IspeakModule,
+            ispeakExt_module_1.IspeakExtModule,
             openApi_module_1.OpenApiModule,
             mongoose_1.MongooseModule.forRoot(process.env.DATABASE_URL, {
                 user: process.env.DATABASE_USER,

@@ -8,6 +8,12 @@ export declare class Ispeak {
     tag: IspeakTag;
     showComment: string;
     author: string;
+    archivedAt: Date;
+    theme: string;
+    mdc: any;
+    mediaIds: mongoose.Schema.Types.ObjectId[];
+    location: any;
+    client: any;
     updatedAt: Date;
     createdAt: Date;
 }

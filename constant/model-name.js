@@ -10,6 +10,9 @@ var ISpeakModelName;
 (function (ISpeakModelName) {
     ISpeakModelName["ISpeakList"] = "kkapi_ispeak_list";
     ISpeakModelName["ISpeakTagList"] = "kkapi_ispeak_tag_list";
+    ISpeakModelName["ISpeakMeta"] = "kkapi_ispeak_meta_list";
+    ISpeakModelName["ISpeakLike"] = "kkapi_ispeak_like_list";
+    ISpeakModelName["ISpeakFavorite"] = "kkapi_ispeak_favorite_list";
 })(ISpeakModelName = exports.ISpeakModelName || (exports.ISpeakModelName = {}));
 var ThirdPartyName;
 (function (ThirdPartyName) {

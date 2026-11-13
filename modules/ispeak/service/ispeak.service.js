@@ -55,6 +55,7 @@ let IspeakService = class IspeakService {
                 query.push(obj);
             }
         });
+        query.push({ archivedAt: null });
         const match = {};
         if (query.length) {
             match['$and'] = query;
@@ -113,7 +114,7 @@ let IspeakService = class IspeakService {
         return this.IspeakModel.findOneAndRemove(findOptions);
     }
     async findOne(findOption) {
-        return this.IspeakModel.find(findOption);
+        return this.IspeakModel.find({ ...findOption, archivedAt: null });
     }
 };
 IspeakService = __decorate([

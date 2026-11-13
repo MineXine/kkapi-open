@@ -22,6 +22,12 @@ let Ispeak = class Ispeak {
     tag;
     showComment;
     author;
+    archivedAt;
+    theme;
+    mdc;
+    mediaIds;
+    location;
+    client;
     updatedAt;
     createdAt;
 };
@@ -57,6 +63,38 @@ __decorate([
     (0, mongoose_1.Prop)({ type: mongoose.Schema.Types.ObjectId, ref: model_name_1.UserModelName.User, required: true }),
     __metadata("design:type", String)
 ], Ispeak.prototype, "author", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: Date, default: null }),
+    __metadata("design:type", Date)
+], Ispeak.prototype, "archivedAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: String, default: 'default' }),
+    __metadata("design:type", String)
+], Ispeak.prototype, "theme", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose.Schema.Types.Mixed, default: null }),
+    __metadata("design:type", Object)
+], Ispeak.prototype, "mdc", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [{ type: mongoose.Schema.Types.ObjectId }], default: [] }),
+    __metadata("design:type", Array)
+], Ispeak.prototype, "mediaIds", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        type: {
+            type: String,
+            enum: ['Point'],
+            default: 'Point',
+        },
+        coordinates: { type: [Number], default: undefined },
+        name: { type: String, default: '' },
+    }),
+    __metadata("design:type", Object)
+], Ispeak.prototype, "location", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose.Schema.Types.Mixed, default: null }),
+    __metadata("design:type", Object)
+], Ispeak.prototype, "client", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Date)
