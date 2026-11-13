@@ -39,7 +39,8 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: |
           export TZ='Asia/Shanghai'
-          yarn install --frozen-lockfile
+          # 仓库 yarn.lock 与 package.json 不同步，暂不能加 --frozen-lockfile
+          yarn install --network-timeout 600000
 
       - name: 5. 开始构建
         run: |
