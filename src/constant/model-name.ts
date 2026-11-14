@@ -10,6 +10,8 @@ export enum ISpeakModelName {
   ISpeakMeta = 'kkapi_ispeak_meta_list',
   ISpeakLike = 'kkapi_ispeak_like_list',
   ISpeakFavorite = 'kkapi_ispeak_favorite_list',
+  // 扩展：草稿独立集合，不参与公开列表与可见性规则
+  ISpeakDraft = 'kkapi_ispeak_draft_list',
 }
 
 export enum ThirdPartyName {

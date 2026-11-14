@@ -101,4 +101,12 @@ export class IspeakTagService {
   async findOneIspeakTagUpdate(findOptions, updateOptions) {
     return this.ispeakTagModal.updateOne(findOptions, updateOptions).exec();
   }
+
+  /**
+   * 删除标签
+   * 调用方需先确认没有说说引用它，否则会留下挂空标签的数据
+   */
+  async deleteOneTag(findOptions) {
+    return this.ispeakTagModal.findOneAndDelete(findOptions).exec();
+  }
 }

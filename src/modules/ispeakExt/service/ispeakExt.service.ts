@@ -180,4 +180,82 @@ export class IspeakExtService {
 
     return { data, isAuthor };
   }
+
+  /**
+   * 归档 / 取消归档
+   * 只改 archivedAt，不动 type 也不删数据，因此可无损恢复
+   * @returns null 表示成功，否则为给前端的提示
+   */
+  async setArchived(speakId: string, userId: string, archived: boolean): Promise<string | null> {
+    if (!isValidObjectId(speakId)) return 'id不合法';
+    const result = await this.ispeakModel
+      .updateOne(
+        { _id: speakId, author: userId },
+        { $set: { archivedAt: archived ? new Date() : null } },
+      )
+      .exec();
+    if (result.matchedCount === 0) return '没有找到对应speak';
+    return null;
+  }
+
+  /**
+   * 归档列表：只返回当前用户已归档的内容
+   */
+  async listArchived(userId: string, page = 1, limit = 10) {
+    const filter = {
+      author: new mongoose.Types.ObjectId(userId),
+      archivedAt: { $ne: null },
+    };
+
+    const [total, items] = await Promise.all([
+      this.ispeakModel.countDocuments(filter).exec(),
+      this.ispeakModel
+        .aggregate([
+          { $match: filter },
+          { $sort: { archivedAt: -1 } },
+          { $skip: (page - 1) * limit },
+          { $limit: limit },
+          {
+            $lookup: {
+              from: ISpeakModelName.ISpeakTagList,
+              localField: 'tag',
+              foreignField: '_id',
+              as: 'tag',
+            },
+          },
+          {
+            $lookup: {
+              from: UserModelName.User,
+              localField: 'author',
+              foreignField: '_id',
+              as: 'author',
+            },
+          },
+          {
+            $project: {
+              title: 1,
+              content: 1,
+              type: 1,
+              showComment: 1,
+              createdAt: 1,
+              updatedAt: 1,
+              archivedAt: 1,
+              tag: 1,
+              author: 1,
+            },
+          },
+        ])
+        .exec(),
+    ]);
+
+    return { total, items };
+  }
+
+  /**
+   * 统计某个标签下还有多少条说说（删除标签前的前置检查）
+   */
+  async countByTag(tagId: string) {
+    if (!isValidObjectId(tagId)) return 0;
+    return this.ispeakModel.countDocuments({ tag: tagId }).exec();
+  }
 }
