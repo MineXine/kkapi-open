@@ -24,4 +24,10 @@ export declare class IspeakExtService {
     }>;
     checkVisible(raw: any, viewerId?: string): string | null;
     getDetail(speakId: string, viewerId?: string): Promise<DetailResult>;
+    setArchived(speakId: string, userId: string, archived: boolean): Promise<string | null>;
+    listArchived(userId: string, page?: number, limit?: number): Promise<{
+        total: number;
+        items: any[];
+    }>;
+    countByTag(tagId: string): Promise<number>;
 }

@@ -163,6 +163,68 @@ let IspeakExtService = class IspeakExtService {
         };
         return { data, isAuthor };
     }
+    async setArchived(speakId, userId, archived) {
+        if (!(0, mongoose_2.isValidObjectId)(speakId))
+            return 'id不合法';
+        const result = await this.ispeakModel
+            .updateOne({ _id: speakId, author: userId }, { $set: { archivedAt: archived ? new Date() : null } })
+            .exec();
+        if (result.matchedCount === 0)
+            return '没有找到对应speak';
+        return null;
+    }
+    async listArchived(userId, page = 1, limit = 10) {
+        const filter = {
+            author: new mongoose.Types.ObjectId(userId),
+            archivedAt: { $ne: null },
+        };
+        const [total, items] = await Promise.all([
+            this.ispeakModel.countDocuments(filter).exec(),
+            this.ispeakModel
+                .aggregate([
+                { $match: filter },
+                { $sort: { archivedAt: -1 } },
+                { $skip: (page - 1) * limit },
+                { $limit: limit },
+                {
+                    $lookup: {
+                        from: model_name_1.ISpeakModelName.ISpeakTagList,
+                        localField: 'tag',
+                        foreignField: '_id',
+                        as: 'tag',
+                    },
+                },
+                {
+                    $lookup: {
+                        from: model_name_1.UserModelName.User,
+                        localField: 'author',
+                        foreignField: '_id',
+                        as: 'author',
+                    },
+                },
+                {
+                    $project: {
+                        title: 1,
+                        content: 1,
+                        type: 1,
+                        showComment: 1,
+                        createdAt: 1,
+                        updatedAt: 1,
+                        archivedAt: 1,
+                        tag: 1,
+                        author: 1,
+                    },
+                },
+            ])
+                .exec(),
+        ]);
+        return { total, items };
+    }
+    async countByTag(tagId) {
+        if (!(0, mongoose_2.isValidObjectId)(tagId))
+            return 0;
+        return this.ispeakModel.countDocuments({ tag: tagId }).exec();
+    }
 };
 IspeakExtService = __decorate([
     (0, common_1.Injectable)(),

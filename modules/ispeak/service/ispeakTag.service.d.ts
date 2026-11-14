@@ -14,4 +14,7 @@ export declare class IspeakTagService {
     })[]>;
     findIspeakTagByPage(page?: number, limit?: number, findOption?: any): Promise<any>;
     findOneIspeakTagUpdate(findOptions: any, updateOptions: any): Promise<import("mongodb").UpdateResult>;
+    deleteOneTag(findOptions: any): Promise<import("../schema/ipseakTag.schema").IspeakTag & mongoose.Document<any, any, any> & {
+        _id: any;
+    }>;
 }

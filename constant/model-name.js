@@ -13,6 +13,7 @@ var ISpeakModelName;
     ISpeakModelName["ISpeakMeta"] = "kkapi_ispeak_meta_list";
     ISpeakModelName["ISpeakLike"] = "kkapi_ispeak_like_list";
     ISpeakModelName["ISpeakFavorite"] = "kkapi_ispeak_favorite_list";
+    ISpeakModelName["ISpeakDraft"] = "kkapi_ispeak_draft_list";
 })(ISpeakModelName = exports.ISpeakModelName || (exports.ISpeakModelName = {}));
 var ThirdPartyName;
 (function (ThirdPartyName) {

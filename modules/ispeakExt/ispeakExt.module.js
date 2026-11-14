@@ -11,12 +11,17 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const model_name_1 = require("../../constant/model-name");
 const ispeak_module_1 = require("../ispeak/ispeak.module");
+const ispeakArchive_controller_1 = require("./controller/ispeakArchive.controller");
+const ispeakDraft_controller_1 = require("./controller/ispeakDraft.controller");
 const ispeakExt_controller_1 = require("./controller/ispeakExt.controller");
 const ispeakFavorite_controller_1 = require("./controller/ispeakFavorite.controller");
 const ispeakLike_controller_1 = require("./controller/ispeakLike.controller");
+const ispeakTagExt_controller_1 = require("./controller/ispeakTagExt.controller");
+const ispeakDraft_schema_1 = require("./schema/ispeakDraft.schema");
 const ispeakFavorite_schema_1 = require("./schema/ispeakFavorite.schema");
 const ispeakLike_schema_1 = require("./schema/ispeakLike.schema");
 const ispeakMeta_schema_1 = require("./schema/ispeakMeta.schema");
+const ispeakDraft_service_1 = require("./service/ispeakDraft.service");
 const ispeakExt_service_1 = require("./service/ispeakExt.service");
 const ispeakFavorite_service_1 = require("./service/ispeakFavorite.service");
 const ispeakLike_service_1 = require("./service/ispeakLike.service");
@@ -43,11 +48,35 @@ IspeakExtModule = __decorate([
                     schema: ispeakFavorite_schema_1.IspeakFavoriteSchema,
                     collection: model_name_1.ISpeakModelName.ISpeakFavorite,
                 },
+                {
+                    name: model_name_1.ISpeakModelName.ISpeakDraft,
+                    schema: ispeakDraft_schema_1.IspeakDraftSchema,
+                    collection: model_name_1.ISpeakModelName.ISpeakDraft,
+                },
             ]),
         ],
-        controllers: [ispeakExt_controller_1.IspeakExtController, ispeakLike_controller_1.IspeakLikeController, ispeakFavorite_controller_1.IspeakFavoriteController],
-        providers: [ispeakExt_service_1.IspeakExtService, ispeakMeta_service_1.IspeakMetaService, ispeakLike_service_1.IspeakLikeService, ispeakFavorite_service_1.IspeakFavoriteService],
-        exports: [ispeakExt_service_1.IspeakExtService, ispeakMeta_service_1.IspeakMetaService, ispeakLike_service_1.IspeakLikeService, ispeakFavorite_service_1.IspeakFavoriteService],
+        controllers: [
+            ispeakExt_controller_1.IspeakExtController,
+            ispeakLike_controller_1.IspeakLikeController,
+            ispeakFavorite_controller_1.IspeakFavoriteController,
+            ispeakArchive_controller_1.IspeakArchiveController,
+            ispeakDraft_controller_1.IspeakDraftController,
+            ispeakTagExt_controller_1.IspeakTagExtController,
+        ],
+        providers: [
+            ispeakExt_service_1.IspeakExtService,
+            ispeakMeta_service_1.IspeakMetaService,
+            ispeakLike_service_1.IspeakLikeService,
+            ispeakFavorite_service_1.IspeakFavoriteService,
+            ispeakDraft_service_1.IspeakDraftService,
+        ],
+        exports: [
+            ispeakExt_service_1.IspeakExtService,
+            ispeakMeta_service_1.IspeakMetaService,
+            ispeakLike_service_1.IspeakLikeService,
+            ispeakFavorite_service_1.IspeakFavoriteService,
+            ispeakDraft_service_1.IspeakDraftService,
+        ],
     })
 ], IspeakExtModule);
 exports.IspeakExtModule = IspeakExtModule;

@@ -95,6 +95,9 @@ let IspeakTagService = class IspeakTagService {
     async findOneIspeakTagUpdate(findOptions, updateOptions) {
         return this.ispeakTagModal.updateOne(findOptions, updateOptions).exec();
     }
+    async deleteOneTag(findOptions) {
+        return this.ispeakTagModal.findOneAndDelete(findOptions).exec();
+    }
 };
 IspeakTagService = __decorate([
     (0, common_1.Injectable)(),

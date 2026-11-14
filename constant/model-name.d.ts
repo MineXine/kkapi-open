@@ -7,7 +7,8 @@ export declare enum ISpeakModelName {
     ISpeakTagList = "kkapi_ispeak_tag_list",
     ISpeakMeta = "kkapi_ispeak_meta_list",
     ISpeakLike = "kkapi_ispeak_like_list",
-    ISpeakFavorite = "kkapi_ispeak_favorite_list"
+    ISpeakFavorite = "kkapi_ispeak_favorite_list",
+    ISpeakDraft = "kkapi_ispeak_draft_list"
 }
 export declare enum ThirdPartyName {
     FriendCirclePost = "Post"
